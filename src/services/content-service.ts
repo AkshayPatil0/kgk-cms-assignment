@@ -60,8 +60,15 @@ export const createContent = async (
 
 // Get a single Content by ID
 export const getContentById = async (id: string) => {
-  const content = await prisma.content.findUnique({
-    where: { id },
+  const content = await prisma.content.findFirst({
+    where: {
+      OR: [
+        {
+          id,
+        },
+        { slug: id },
+      ],
+    },
   });
   if (!content) throw new NotFoundError("Content not found");
   return content;
@@ -128,6 +135,7 @@ export const getContents = async ({
       published: filters.published,
       contentTypeId: filters.contentTypeId,
     },
+    include: { contentType: true },
     skip,
     take: pageSize,
     orderBy: {

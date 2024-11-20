@@ -21,7 +21,6 @@ export function ContentTypesMenu() {
   const { data: contentTypes } = useQuery(getContentTypesOptions());
   const { value: selectedContentType, getNextUrl } = useQueryParams("ct");
 
-  console.log({ selectedContentType });
   if (!contentTypes) return null;
   return (
     <SidebarGroup>
@@ -29,7 +28,7 @@ export function ContentTypesMenu() {
       <AddContentTypeButton />
       <SidebarGroupContent>
         <SidebarMenu>
-          {contentTypes.data.map((contentType) => (
+          {contentTypes.map((contentType) => (
             <SidebarMenuItem key={contentType.name}>
               <SidebarMenuButton
                 asChild

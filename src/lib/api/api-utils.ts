@@ -1,5 +1,10 @@
 import { ApiException, NotFoundError, ValidationError } from "@/lib/error";
-import { ApiErrorResponse, ApiSuccessResponse } from "./types";
+import {
+  ApiErrorResponse,
+  ApiSuccessResponse,
+  Content,
+  ContentResponse,
+} from "./types";
 
 export const mapSuccessResponse = <T>(data: T): ApiSuccessResponse<T> => {
   return {
@@ -38,14 +43,19 @@ export const getDefaultErrorResponse = (error: unknown) => {
 };
 
 // Utility to handle errors in fetch response
-export async function handleFetchResponse<T>(
-  response: Response
-): Promise<ApiSuccessResponse<T>> {
+export async function handleFetchResponse<T>(response: Response): Promise<T> {
   if (response.ok) {
-    const data = await response.json();
-    return data as ApiSuccessResponse<T>;
+    const data = (await response.json()) as ApiSuccessResponse<T>;
+    return data.data;
   } else {
     const errorData = (await response.json()) as ApiErrorResponse;
     throw new ApiException(errorData.error ?? "Http request failed", errorData);
   }
+}
+
+export function mapContentResponse(contentRes: ContentResponse): Content {
+  return {
+    ...contentRes,
+    content: contentRes.content && JSON.parse(contentRes.content),
+  };
 }

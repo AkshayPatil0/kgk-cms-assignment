@@ -15,7 +15,7 @@ export async function GET(
   request: Request,
   { params }: { params: { id: string } }
 ) {
-  const { id } = params;
+  const { id } = await params;
   try {
     const content = await getContentById(id);
     return NextResponse.json(mapSuccessResponse(content));

@@ -4,33 +4,24 @@ import { handleFetchResponse } from "./api-utils";
 import {
   ApiSuccessResponse,
   ContentResponse,
+  FetchContentsRequest,
   FetchContentsResponse,
   UpdateContentRequest,
 } from "./types";
 
 // Fetch all contents with optional filters, sorting, and pagination
-export async function fetchContents(
-  params: {
-    title?: string;
-    published?: boolean;
-    contentTypeId?: string;
-    page?: number;
-    pageSize?: number;
-    sortField?: string;
-    sortOrder?: "asc" | "desc";
-  } = {}
-): Promise<FetchContentsResponse> {
+export async function fetchContents(params: FetchContentsRequest = {}) {
   const query = new URLSearchParams(
     params as Record<string, string>
   ).toString();
-  const res = await fetch(`/api/content?${query}`);
+  const res = await fetch(`/api/contents?${query}`);
 
-  return handleFetchResponse(res);
+  return handleFetchResponse<FetchContentsResponse>(res);
 }
 
 // Fetch a single content item by ID
 export async function fetchContentById(id: string): Promise<ContentResponse> {
-  const res = await fetch(`/api/content/${id}`);
+  const res = await fetch(`/api/contents/${id}`);
 
   return handleFetchResponse(res);
 }
@@ -42,7 +33,7 @@ export async function createContent(data: {
   contentTypeId: string;
   content?: string;
 }): Promise<ContentResponse> {
-  const res = await fetch("/api/content", {
+  const res = await fetch("/api/contents", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify(data),
@@ -56,7 +47,7 @@ export async function updateContent(
   id: string,
   data: UpdateContentRequest
 ): Promise<ContentResponse> {
-  const res = await fetch(`/api/content/${id}`, {
+  const res = await fetch(`/api/contents/${id}`, {
     method: "PUT",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify(data),
@@ -69,7 +60,7 @@ export async function updateContent(
 export async function deleteContent(
   id: string
 ): Promise<ApiSuccessResponse<null>> {
-  const res = await fetch(`/api/content/${id}`, {
+  const res = await fetch(`/api/contents/${id}`, {
     method: "DELETE",
   });
 

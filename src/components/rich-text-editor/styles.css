@@ -1,0 +1,101 @@
+.tiptap {
+  @apply min-h-[calc(100vh_-_2rem)] text-base leading-relaxed text-gray-800;
+}
+
+.tiptap:focus-visible {
+  @apply outline-none;
+}
+
+.tiptap > * + * {
+  @apply mt-6;
+}
+
+.tiptap ul,
+.tiptap ol {
+  @apply list-inside px-4;
+}
+
+.tiptap ul {
+  @apply list-disc;
+}
+
+.tiptap ol {
+  @apply list-decimal;
+}
+
+.tiptap li {
+  @apply mb-2;
+}
+.tiptap li p {
+  @apply inline-block mb-0;
+}
+
+.tiptap h1 {
+  @apply text-4xl font-bold leading-tight text-gray-900 mt-8 mb-4;
+}
+
+.tiptap h2 {
+  @apply text-3xl font-semibold leading-tight text-gray-900 mt-6 mb-4;
+}
+
+.tiptap h3 {
+  @apply text-2xl font-medium leading-tight text-gray-900 mt-4 mb-3;
+}
+
+.tiptap h4,
+.tiptap h5,
+.tiptap h6 {
+  @apply text-xl font-medium leading-snug text-gray-900 mt-3 mb-2;
+}
+
+.tiptap p {
+  @apply mb-4;
+}
+
+.tiptap a {
+  @apply text-blue-500 underline hover:text-blue-700;
+}
+
+.tiptap code {
+  @apply bg-gray-100 text-gray-800 border border-gray-300 rounded px-1 py-0.5;
+}
+
+.tiptap pre {
+  @apply bg-gray-900 text-white font-mono text-sm p-4 rounded-lg overflow-auto mb-6;
+}
+
+.tiptap pre code {
+  @apply text-white bg-transparent p-0 border-none;
+}
+
+.tiptap img {
+  @apply max-w-full h-auto rounded-md shadow;
+}
+
+.tiptap blockquote {
+  @apply italic text-gray-600 pl-4 border-l-4 border-gray-300;
+}
+
+.tiptap hr {
+  @apply border-none border-t-2 border-gray-300 my-8;
+}
+
+.tiptap table {
+  @apply table-auto border-collapse w-full my-6;
+}
+
+.tiptap th {
+  @apply border-b border-gray-300 font-semibold text-left p-2 bg-gray-100;
+}
+
+.tiptap td {
+  @apply border-b border-gray-300 p-2;
+}
+
+.tiptap strong {
+  @apply font-semibold text-gray-900;
+}
+
+.tiptap em {
+  @apply italic;
+}

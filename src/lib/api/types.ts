@@ -2,6 +2,8 @@
   Common API types
  ------------------------*/
 
+import { RichTextContent } from "@/components/rich-text-editor/types";
+
 export interface PaginatedResponse<T> {
   records: T[];
   total: number;
@@ -36,8 +38,9 @@ export interface Content {
   id: string;
   title: string;
   slug: string;
-  content?: string;
+  content?: RichTextContent;
   contentTypeId: string;
+  contentType: ContentType;
   published: boolean;
   createdAt: string;
   updatedAt: string;
@@ -72,19 +75,14 @@ export interface FetchContentsRequest extends PaginationParams, SortingParams {
 // Response types
 
 // Type for a single content response
-export type ContentResponse = ApiSuccessResponse<PaginatedResponse<Content>>;
+export type ContentResponse = Omit<Content, "content"> & { content?: string };
 
 // Type for a paginated list of contents
-export type FetchContentsResponse = ApiSuccessResponse<{
-  data: Content[];
-  total: number;
-}>;
+export type FetchContentsResponse = PaginatedResponse<ContentResponse>;
 
 /* ------------------------
   Content types API types
  ------------------------*/
-
-// types/contentType.ts
 
 // ContentType entity type
 export interface ContentType {
@@ -108,7 +106,7 @@ export interface UpdateContentTypeRequest {
 // Response types
 
 // Type for a single content type response
-export type ContentTypeResponse = ApiSuccessResponse<ContentType>;
+export type ContentTypeResponse = ContentType;
 
 // Type for a list of content types
-export type FetchContentTypesResponse = ApiSuccessResponse<ContentType[]>;
+export type FetchContentTypesResponse = ContentType[];
