@@ -6,6 +6,7 @@ import { SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar";
 import { AppSidebar } from "./_components/app-sidebar";
 import Providers from "@/lib/query/Providers";
 import { Toaster } from "@/components/ui/toaster";
+import { Suspense } from "react";
 
 const sora = Sora({ subsets: ["latin"] });
 
@@ -23,14 +24,16 @@ export default function RootLayout({
     <html lang="en">
       <body className={sora.className}>
         <Providers>
-          <SidebarProvider>
-            <AppSidebar />
-            <main className="w-full h-full">
-              <SidebarTrigger />
-              {children}
-            </main>
-            <Toaster />
-          </SidebarProvider>
+          <Suspense>
+            <SidebarProvider>
+              <AppSidebar />
+              <main className="w-full h-full">
+                <SidebarTrigger />
+                {children}
+              </main>
+              <Toaster />
+            </SidebarProvider>
+          </Suspense>
         </Providers>
       </body>
     </html>

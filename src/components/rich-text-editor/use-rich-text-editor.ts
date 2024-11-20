@@ -3,8 +3,6 @@ import { useEditor, UseEditorOptions } from "@tiptap/react";
 import StarterKit from "@tiptap/starter-kit";
 
 const extensions = [
-  // Color.configure({ types: [TextStyle.name, ListItem.name] }),
-  // TextStyle.configure({ types: [ListItem.name] }),
   StarterKit.configure({
     bulletList: {
       keepMarks: true,

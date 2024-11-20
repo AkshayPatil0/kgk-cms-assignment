@@ -10,10 +10,11 @@ import {
   getDefaultErrorResponse,
   mapSuccessResponse,
 } from "../../../../lib/api/api-utils";
+import { RouteParams } from "@/lib/api/types";
 
 export async function GET(
   request: Request,
-  { params }: { params: { id: string } }
+  { params }: RouteParams<{ id: string }>
 ) {
   const { id } = await params;
   try {
@@ -27,9 +28,9 @@ export async function GET(
 
 export async function PUT(
   request: Request,
-  { params }: { params: { id: string } }
+  { params }: RouteParams<{ id: string }>
 ) {
-  const { id } = params;
+  const { id } = await params;
   const data = await request.json();
 
   try {
@@ -43,9 +44,9 @@ export async function PUT(
 
 export async function DELETE(
   request: Request,
-  { params }: { params: { id: string } }
+  { params }: RouteParams<{ id: string }>
 ) {
-  const { id } = params;
+  const { id } = await params;
   try {
     await deleteContent(id);
     return NextResponse.json(mapSuccessResponse(null));

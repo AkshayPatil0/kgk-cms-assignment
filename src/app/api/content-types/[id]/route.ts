@@ -10,12 +10,13 @@ import {
   getDefaultErrorResponse,
   mapSuccessResponse,
 } from "../../../../lib/api/api-utils";
+import { RouteParams } from "@/lib/api/types";
 
 export async function GET(
   request: Request,
-  { params }: { params: { id: string } }
+  { params }: RouteParams<{ id: string }>
 ) {
-  const { id } = params;
+  const { id } = await params;
   try {
     const contentType = await getContentTypeById(id);
 
@@ -28,9 +29,9 @@ export async function GET(
 
 export async function PUT(
   request: Request,
-  { params }: { params: { id: string } }
+  { params }: RouteParams<{ id: string }>
 ) {
-  const { id } = params;
+  const { id } = await params;
   const { name } = await request.json();
 
   try {
@@ -44,9 +45,9 @@ export async function PUT(
 
 export async function DELETE(
   request: Request,
-  { params }: { params: { id: string } }
+  { params }: RouteParams<{ id: string }>
 ) {
-  const { id } = params;
+  const { id } = await params;
   try {
     await deleteContentType(id);
     return NextResponse.json(mapSuccessResponse(null));

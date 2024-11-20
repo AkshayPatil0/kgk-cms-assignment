@@ -35,6 +35,7 @@ import { Alert, AlertDescription } from "@/components/ui/alert";
 import { slugify } from "@/lib/utils";
 import { createContent } from "@/lib/api/content";
 import { CreateContentRequest } from "@/lib/api/types";
+import { useRouter } from "next/navigation";
 
 const formSchema = z.object({
   title: z.string().min(2, {
@@ -54,16 +55,18 @@ export default function CreateContentButton() {
     defaultValues: {
       title: "",
       slug: "",
-      contentTypeId: "",
     },
   });
 
   const { data: contentTypes } = useQuery(getContentTypesOptions());
 
+  const router = useRouter();
+
   const { mutate } = useMutation({
     mutationFn: (params: CreateContentRequest) => createContent(params),
     onSuccess(data) {
-      console.log(data.data);
+      console.log(data);
+      router.push(`/${data.slug}`);
       setIsOpen(false);
       form.reset();
     },
@@ -154,7 +157,7 @@ export default function CreateContentButton() {
                       </SelectTrigger>
                     </FormControl>
                     <SelectContent>
-                      {contentTypes?.data.map((contentType) => (
+                      {contentTypes?.map((contentType) => (
                         <SelectItem key={contentType.id} value={contentType.id}>
                           {contentType.name}
                         </SelectItem>

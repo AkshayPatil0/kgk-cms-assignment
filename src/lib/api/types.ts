@@ -29,6 +29,10 @@ export interface ApiSuccessResponse<T> {
   data: T;
 }
 
+export interface RouteParams<T> {
+  params: Promise<T>;
+}
+
 /* ------------------------
   Content API types
  ------------------------*/
